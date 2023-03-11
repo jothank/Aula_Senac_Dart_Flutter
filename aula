@@ -1,0 +1,207 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  //flutter trabalha com widgets
+  //dois tipos: Stateless: sem atualização, estático, não tem alteração
+  // e Statefull: dinâmico, se quiser alteração em tempo real é usado esse
+  runApp(
+    MaterialApp(
+      theme: ThemeData(),
+      home: HomePage(),
+      debugShowCheckedModeBanner: false, //tirar debug
+    ),
+  );
+}
+
+//home é o header do html
+//atalho stl
+//texto é Text
+//appbar barra de navegação
+//scaffold é o body do html
+//centerTitle para centralizar o título da navbar no centro
+//usar child para colocar coisas dentro do container
+//se tiver child pode passar apenas um parametro pra ele
+//para centralizar um texto: clicar no Text e ctrl . usar wrap with center
+//utilizar Collumn para posisionar elementos um embaixo do outro
+//usar Row para posicionar um ao lado do outro
+//mainAxisAlignment para dar um espaçamento entre os containers
+//ListView adiciona vários elementos
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  PageController _pagecontroller = PageController();
+
+  int active = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+                accountName: Text('Jonathan Costa'),
+                accountEmail: Text('jothank@hotmail.com'),
+                currentAccountPicture: CircleAvatar(child: Text('J'))),
+            ListTile(
+              onTap: () {
+                _pagecontroller.jumpToPage(0);
+                Navigator.pop(context);
+              },
+              title: Text('Home'),
+              leading: CircleAvatar(
+                child: Icon(Icons.home),
+              ),
+              subtitle: Text('inicio'),
+            ),
+            ListTile(
+              onTap: () {
+                _pagecontroller.jumpToPage(1);
+                Navigator.pop(context);
+              },
+              title: Text('Ofertas'),
+              leading: CircleAvatar(
+                child: Icon(Icons.shopping_bag),
+              ),
+              subtitle: Text('ofertas'),
+            ),
+            ListTile(
+              onTap: () {
+                _pagecontroller.jumpToPage(2);
+                Navigator.pop(context);
+              },
+              title: Text('Serviços'),
+              leading: CircleAvatar(
+                child: Icon(Icons.room_service),
+              ),
+              subtitle: Text('oerviços'),
+            ),
+            ListTile(
+              onTap: () {
+                _pagecontroller.jumpToPage(3);
+                Navigator.pop(context);
+              },
+              title: Text('Sobre'),
+              leading: CircleAvatar(
+                child: Icon(Icons.question_mark),
+              ),
+              subtitle: Text('sobre'),
+            )
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        title: Text('EKart'),
+        backgroundColor: Color.fromARGB(255, 43, 78, 108),
+      ),
+      body: PageView(
+        controller: _pagecontroller,
+        children: [
+          Container(
+            child: ListView(
+              children: [
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text(toString().characters.last),
+                  ),
+                  title: Text('XXXXXXXXX'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Text('J'),
+                  ),
+                  title: Text('Jonathan Costa'),
+                  trailing: Icon(Icons.home),
+                  subtitle: Text('48984551688'),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: Color.fromARGB(121, 73, 136, 203),
+          ),
+          Container(
+            color: Color.fromARGB(120, 20, 62, 161),
+          ),
+          Container(
+            color: Color.fromARGB(167, 103, 180, 205),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: active,
+          onTap: (value) {
+            _pagecontroller.animateToPage(value,
+                duration: Duration(milliseconds: 300), curve: Curves.ease);
+            setState(() {
+              active = value;
+            });
+          },
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_bag), label: 'Ofertas'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.room_service), label: 'Serviços'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.question_mark), label: 'Sobre'),
+          ]),
+    );
+  }
+}
